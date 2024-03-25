@@ -14,7 +14,7 @@
         }
         .task-description {
             display: block;
-            margin: 5px;
+            margin-left: 20px;
             font-style: italic;
             color: #666;
         }
@@ -67,8 +67,10 @@
             checkbox.addEventListener("change", function() {
                 if (checkbox.checked) {
                     taskLabel.classList.add("completed");
+                    descriptionSpan.classList.add("completed")
                 } else {
                     taskLabel.classList.remove("completed");
+                    descriptionSpan.classList.remove("completed")
                 }
             });
 
