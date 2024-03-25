@@ -6,6 +6,12 @@
     <title>My TODO List</title>
     <style>
         /* CSS styles can be added here */
+        ul {
+            list-style: none;
+        }
+        .completed {
+            text-decoration: line-through;
+        }
     </style>
 </head>
 <body>
@@ -28,12 +34,37 @@
         if (taskText !== "") { // Check if the input is not empty
             var todoList = document.getElementById("todo-list");
             var listItem = document.createElement("li");
-            listItem.textContent = taskText;
+
+            var checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            listItem.appendChild(checkbox);
+
+            var taskLabel = document.createElement("label");
+            taskLabel.textContent = taskText;
+            listItem.appendChild(taskLabel);
+
             todoList.appendChild(listItem);
+
             taskInput.value = ""; // Clear the input field
+
+            // Add event listener to the checkbox
+            checkbox.addEventListener("change", function() {
+                if (checkbox.checked) {
+                    taskLabel.classList.add("completed");
+                } else {
+                    taskLabel.classList.remove("completed");
+                }
+            });
+
+            // Add event listener to the task label for editing
+            taskLabel.addEventListener("dblclick", function() {
+                var newText = prompt("Edit task:", taskLabel.textContent);
+                if (newText !== null) {
+                    taskLabel.textContent = newText;
+                }
+            });
         }
     });
-
 </script>
 </body>
 </html>
