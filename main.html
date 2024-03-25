@@ -12,6 +12,12 @@
         .completed {
             text-decoration: line-through;
         }
+        .task-description {
+            display: block;
+            margin: 5px;
+            font-style: italic;
+            color: #666;
+        }
     </style>
 </head>
 <body>
@@ -19,6 +25,8 @@
 <form id="todo-form">
     <input type="text" id="todo-input" placeholder="Enter your task...">
     <button type="submit">Add Task</button>
+    <br>
+    <input type="text" id="description-input" placeholder="Enter task description...">
 </form>
 <ul id="todo-list">
     <!-- Tasks will be dynamically added here -->
@@ -29,7 +37,9 @@
         event.preventDefault(); // Prevent the default form submission
 
         var taskInput = document.getElementById("todo-input");
+        var descriptionInput = document.getElementById("description-input");
         var taskText = taskInput.value.trim(); // Trim any leading or trailing whitespace
+        var descriptionText = descriptionInput.value.trim(); // Trim any leading or trailing whitespace
 
         if (taskText !== "") { // Check if the input is not empty
             var todoList = document.getElementById("todo-list");
@@ -43,9 +53,15 @@
             taskLabel.textContent = taskText;
             listItem.appendChild(taskLabel);
 
+            var descriptionSpan = document.createElement("span");
+            descriptionSpan.textContent = descriptionText;
+            descriptionSpan.classList.add("task-description"); // Assign class for styling
+            listItem.appendChild(descriptionSpan);
+
             todoList.appendChild(listItem);
 
-            taskInput.value = ""; // Clear the input field
+            taskInput.value = ""; // Clear the task input field
+            descriptionInput.value = ""; // Clear the description input field
 
             // Add event listener to the checkbox
             checkbox.addEventListener("change", function() {
