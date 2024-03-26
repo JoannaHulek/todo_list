@@ -5,28 +5,53 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My TODO List</title>
     <style>
-        /* CSS styles can be added here */
         ul {
             list-style: none;
         }
-        .completed {
-            text-decoration: line-through;
-        }
+
         .task-description {
             display: block;
             margin-left: 20px;
             font-style: italic;
             color: #666;
         }
+
+        /* CSS styles for completed tasks */
+        .completed {
+            text-decoration: line-through;
+        }
+
+        /* CSS styles for the edit button */
+        .button-element  {
+            display: block;
+            margin: 5px;
+        }
+
+        .hidden-button {
+            display: inline-block; /* Display button inline */
+            margin-left: 10px; /* Add some margin between label and button */
+            vertical-align: middle; /* Align button vertically */
+        }
+
+        /* Initially hide the edit button */
+        .hidden-element {
+            display: none;
+        }
+
+        /* CSS styles to show the edit button on hover */
+        li:hover .hidden-element {
+            display: inline;
+        }
+
     </style>
 </head>
 <body>
 <h1>TODO List</h1>
 <form id="todo-form">
     <input type="text" id="todo-input" placeholder="Enter your task...">
-    <button type="submit">Add Task</button>
-    <br>
     <input type="text" id="description-input" placeholder="Enter task description...">
+    <button class="button-element" type="submit">Add Task</button>
+
 </form>
 <ul id="todo-list">
     <!-- Tasks will be dynamically added here -->
@@ -58,6 +83,12 @@
             descriptionSpan.classList.add("task-description"); // Assign class for styling
             listItem.appendChild(descriptionSpan);
 
+            var editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.classList.add("hidden-button");
+            editButton.classList.add("hidden-element"); // Initially hide the edit button
+            listItem.appendChild(editButton);
+
             todoList.appendChild(listItem);
 
             taskInput.value = ""; // Clear the task input field
@@ -67,18 +98,21 @@
             checkbox.addEventListener("change", function() {
                 if (checkbox.checked) {
                     taskLabel.classList.add("completed");
-                    descriptionSpan.classList.add("completed")
+                    descriptionSpan.classList.add("completed");
                 } else {
                     taskLabel.classList.remove("completed");
-                    descriptionSpan.classList.remove("completed")
+                    descriptionSpan.classList.remove("completed");
                 }
             });
 
-            // Add event listener to the task label for editing
-            taskLabel.addEventListener("dblclick", function() {
-                var newText = prompt("Edit task:", taskLabel.textContent);
-                if (newText !== null) {
-                    taskLabel.textContent = newText;
+            // Add event listener to the edit button
+            editButton.addEventListener("click", function() {
+                var newTaskText = prompt("Edit task:", taskLabel.textContent);
+                var newDescriptionText = prompt("Edit description:", descriptionSpan.textContent);
+
+                if (newTaskText !== null && newDescriptionText !== null) {
+                    taskLabel.textContent = newTaskText;
+                    descriptionSpan.textContent = newDescriptionText;
                 }
             });
         }
