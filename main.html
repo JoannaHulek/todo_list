@@ -27,20 +27,17 @@
             margin: 5px;
         }
 
-        .hidden-button {
+        /* Initially hide the edit button */
+        .hidden-element {
             display: inline-block; /* Display button inline */
+            visibility:hidden;
             margin-left: 10px; /* Add some margin between label and button */
             vertical-align: middle; /* Align button vertically */
         }
 
-        /* Initially hide the edit button */
-        .hidden-element {
-            display: none;
-        }
-
         /* CSS styles to show the edit button on hover */
         li:hover .hidden-element {
-            display: inline;
+            visibility: visible;
         }
 
     </style>
@@ -78,16 +75,15 @@
             taskLabel.textContent = taskText;
             listItem.appendChild(taskLabel);
 
+            var editButton = document.createElement("button");
+            editButton.textContent = "Edit";
+            editButton.classList.add("hidden-element"); // Initially hide the edit button
+            listItem.appendChild(editButton);
+
             var descriptionSpan = document.createElement("span");
             descriptionSpan.textContent = descriptionText;
             descriptionSpan.classList.add("task-description"); // Assign class for styling
             listItem.appendChild(descriptionSpan);
-
-            var editButton = document.createElement("button");
-            editButton.textContent = "Edit";
-            editButton.classList.add("hidden-button");
-            editButton.classList.add("hidden-element"); // Initially hide the edit button
-            listItem.appendChild(editButton);
 
             todoList.appendChild(listItem);
 
