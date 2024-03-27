@@ -1,0 +1,17 @@
+[
+  {
+    "title": "first task",
+    "description": "first task description",
+    "completed": false
+  },
+  {
+    "title": "second task",
+    "description": "second task description",
+    "completed": true
+  },
+  {
+    "title": "last task",
+    "description": "last task description",
+    "completed": false
+  }
+]
