@@ -28,6 +28,3 @@ To run this project locally:
 
 This project is a learning exercise, but contributions are welcome! If you have any suggestions, improvements, or bug fixes, feel free to submit a pull request.
 
-## License
-
-This project is licensed under the [MIT License](LICENSE).
