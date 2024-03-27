@@ -1,3 +1,55 @@
+// Function to fetch and render tasks from JSON file
+function fetchAndRenderTasks() {
+    // Fetch the JSON data from todo-list.json
+    fetch('todo-list.json')
+        .then(response => response.json())
+        .then(tasks => {
+            renderTasks(tasks); // Render the tasks on the page
+        })
+        .catch(error => {
+            console.error('Error fetching tasks:', error);
+        });
+}
+
+// Function to render tasks
+function renderTasks(tasks) {
+    var todoList = document.getElementById('todo-list');
+    todoList.innerHTML = ''; // Clear existing list
+
+    tasks.forEach(task => {
+        var listItem = document.createElement('li');
+
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        listItem.appendChild(checkbox);
+
+        var taskLabel = document.createElement('label');
+        taskLabel.textContent = task.title;
+        if (task.completed) {
+            taskLabel.classList.add('completed');
+        }
+        listItem.appendChild(taskLabel);
+
+        var editButton = document.createElement('button');
+        editButton.textContent = 'Edit';
+        editButton.classList.add('edit-button');
+        listItem.appendChild(editButton);
+
+        var descriptionSpan = document.createElement('span');
+        descriptionSpan.textContent = task.description;
+        descriptionSpan.classList.add('task-description');
+        listItem.appendChild(descriptionSpan);
+
+        todoList.appendChild(listItem);
+    });
+
+    initializeTaskListeners(); // Reattach event listeners to the loaded tasks
+}
+
+// Call fetchAndRenderTasks to fetch and render tasks on page load
+fetchAndRenderTasks();
+
 document.getElementById("todo-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
