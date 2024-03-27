@@ -1,0 +1,34 @@
+ul {
+    list-style: none;
+}
+
+.task-description {
+    display: block;
+    margin-left: 20px;
+    font-style: italic;
+    color: #666;
+}
+
+/* CSS styles for completed tasks */
+.completed {
+    text-decoration: line-through;
+}
+
+/* CSS styles for the edit button */
+.button-element  {
+    display: block;
+    margin: 5px;
+}
+
+/* Initially hide the edit button */
+.hidden-element {
+    display: inline-block; /* Display button inline */
+    visibility:hidden;
+    margin-left: 10px; /* Add some margin between label and button */
+    vertical-align: middle; /* Align button vertically */
+}
+
+/* CSS styles to show the edit button on hover */
+li:hover .hidden-element {
+    visibility: visible;
+}
