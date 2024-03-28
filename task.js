@@ -4,26 +4,33 @@ const task = {
     doneFlag: false
 };
 
-function createNewTask(titleInput, descriptionInput) {
-    const myTask = Object.create(task);
-    myTask.taskTitle = titleInput.value.trim();
-    myTask.taskDescription = descriptionInput.value.trim();
-    myTask.doneFlag = false;
+const tasks = [];
 
-    createListItem(myTask);
+function Task(title, description) {
+    this.taskTitle = title;
+    this.taskDescription = description;
+    this.doneFlag = false; // Default value for doneFlag
 }
 
-function editTask(myTask, newTitle, newDescription) {
-    myTask.taskTitle = newTitle;
-    myTask.taskDescription = newDescription
-
-    return myTask;
+function addTask(titleInput, descriptionInput) {
+    const newTask = new Task(titleInput, descriptionInput)
+    tasks.push(newTask);
 }
 
-function updateDoneFlag(myTask, newDoneFlag) {
-    myTask.doneFlag = newDoneFlag;
+function editTask(taskID, newTitle, newDescription) {
+    if (taskID >= 0 && taskID < tasks.length) {
+        const task = tasks[taskID];
+        task.taskTitle = newTitle;
+        task.taskDescription = newDescription;
+    }
+}
 
-    return myTask;
+// Function to update done flag
+function updateDoneFlag(taskID, newDoneFlag) {
+    if (taskID >= 0 && taskID < tasks.length) {
+        const task = tasks[taskID];
+        task.doneFlag = newDoneFlag;
+    }
 }
 
 function onSubmit(event) {
