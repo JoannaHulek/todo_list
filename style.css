@@ -9,7 +9,7 @@ ul {
     color: #666;
 }
 
-/* CSS styles for completed tasks */
+/* CSS styles for doneFlag tasks */
 .completed {
     text-decoration: line-through;
 }

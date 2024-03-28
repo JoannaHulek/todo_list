@@ -2,16 +2,16 @@
   {
     "title": "first task",
     "description": "first task description",
-    "completed": false
+    "doneFlag": false
   },
   {
     "title": "second task",
     "description": "second task description",
-    "completed": true
+    "doneFlag": true
   },
   {
     "title": "last task",
     "description": "last task description",
-    "completed": false
+    "doneFlag": false
   }
 ]

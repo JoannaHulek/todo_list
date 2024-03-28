@@ -1,5 +1,5 @@
 // Function to fetch and render tasks from JSON file
-function fetchAndRenderTasks() {
+function fetchAndRenderList() {
     // Fetch the JSON data from todo-list.json
     fetch('todo-list.json')
         .then(response => response.json())
@@ -21,44 +21,53 @@ function renderTasks(tasks) {
 
         var titleText = task.title;
         var descriptionText = task.description;
-        var completedLabel = task.completed;
+        var completedLabel = task.doneFlag;
 
         createListItem(listItem, titleText, descriptionText, completedLabel, todoList)
     });
 }
 
-// Call fetchAndRenderTasks to fetch and render tasks on page load
-fetchAndRenderTasks();
+// Call fetchAndRenderList to fetch and render tasks on page load
+fetchAndRenderList();
 
-function createListItem(listItem, titleText, descriptionText, completedLabel, todoList) {
-    var checkbox = document.createElement("input");
-    checkbox.type = "checkbox";
+function createListItem(task) {
+    var listItem = document.createElement('li');
+
+    var checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.checked = task.doneFlag;
     listItem.appendChild(checkbox);
 
-    var taskLabel = document.createElement("label");
-    taskLabel.textContent = titleText;
+    var taskLabel = document.createElement('label');
+    taskLabel.textContent = task.taskTitle;
+    if (task.doneFlag) {
+        taskLabel.classList.add('doneFlag');
+    }
     listItem.appendChild(taskLabel);
 
-    var editButton = document.createElement("button");
-    editButton.textContent = "Edit";
+    var editButton = document.createElement('button');
+    editButton.textContent = 'Edit';
     editButton.classList.add("hidden-element"); // Initially hide the edit button
     listItem.appendChild(editButton);
 
-    var descriptionSpan = document.createElement("span");
-    descriptionSpan.textContent = descriptionText;
-    descriptionSpan.classList.add("task-description"); // Assign class for styling
+    var descriptionSpan = document.createElement('span');
+    descriptionSpan.textContent = task.taskDescription;
+    descriptionSpan.classList.add('task-description');
     listItem.appendChild(descriptionSpan);
+}
+
+function createList(listItem, todoList) {
 
     todoList.appendChild(listItem);
 
     // Add event listener to the checkbox
     checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
-            taskLabel.classList.add("completed");
-            descriptionSpan.classList.add("completed");
+            taskLabel.classList.add("doneFlag");
+            descriptionSpan.classList.add("doneFlag");
         } else {
-            taskLabel.classList.remove("completed");
-            descriptionSpan.classList.remove("completed");
+            taskLabel.classList.remove("doneFlag");
+            descriptionSpan.classList.remove("doneFlag");
         }
     });
 
@@ -72,25 +81,16 @@ function createListItem(listItem, titleText, descriptionText, completedLabel, to
             descriptionSpan.textContent = newDescriptionText;
         }
     });
-}
 
-function onSubmit(event) {
-    event.preventDefault(); // Prevent the default form submission
-
-    var titleInput = document.getElementById("todo-input");
-    var descriptionInput = document.getElementById("description-input");
-    var titleText = titleInput.value.trim(); // Trim any leading or trailing whitespace
-    var descriptionText = descriptionInput.value.trim(); // Trim any leading or trailing whitespace
-
-    if (titleText !== "") { // Check if the input is not empty
-        var todoList = document.getElementById("todo-list");
-        var listItem = document.createElement("li");
-         createListItem(listItem, titleText, descriptionText, false, todoList);
-        titleInput.value = ""; // Clear the task input field
-        descriptionInput.value = ""; // Clear the description input field
+    function extracted(myTask, titleInput, descriptionInput) {
+        if (myTask.taskTitle !== "") { // Check if the input is not empty
+            var todoList = document.getElementById("todo-list");
+            var listItem = document.createElement("li");
+            createListItem(listItem, titleText, descriptionText, false, todoList);
+            titleInput.value = ""; // Clear the task input field
+            descriptionInput.value = ""; // Clear the description input field
+        }
     }
 }
 
-document.getElementById("todo-form").addEventListener("submit", function(event) {
-    onSubmit(event);
-});
+
