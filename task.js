@@ -20,6 +20,7 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
 
         let titleLabel = document.createElement('label');
         titleLabel.textContent = title;
+        titleLabel.classList.add('task-title');
         taskItem.appendChild(titleLabel);
         titleInput.value = ""; // Clear the input field
 

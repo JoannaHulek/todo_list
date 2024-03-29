@@ -2,6 +2,10 @@ ul {
     list-style: none;
 }
 
+.task-title {
+    font-weight: bold;
+}
+
 .task-description {
     display: block;
     margin-left: 20px;
