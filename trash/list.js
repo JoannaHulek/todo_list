@@ -23,14 +23,14 @@ function renderTasks(tasks) {
         var descriptionText = task.description;
         var completedLabel = task.doneFlag;
 
-        createListItem(listItem, titleText, descriptionText, completedLabel, todoList)
+        createListItem(task, document.getElementById("todo-list"))
     });
 }
 
 // Call fetchAndRenderList to fetch and render tasks on page load
 fetchAndRenderList();
 
-function createListItem(task) {
+function createListItem(task, todoParent) {
     var listItem = document.createElement('li');
 
     var checkbox = document.createElement('input');
@@ -39,7 +39,7 @@ function createListItem(task) {
     listItem.appendChild(checkbox);
 
     var taskLabel = document.createElement('label');
-    taskLabel.textContent = task.taskTitle;
+    taskLabel.textContent = task.title;
     if (task.doneFlag) {
         taskLabel.classList.add('doneFlag');
     }
@@ -51,9 +51,10 @@ function createListItem(task) {
     listItem.appendChild(editButton);
 
     var descriptionSpan = document.createElement('span');
-    descriptionSpan.textContent = task.taskDescription;
+    descriptionSpan.textContent = task.description;
     descriptionSpan.classList.add('task-description');
     listItem.appendChild(descriptionSpan);
+    createList(listItem, todoParent)
 }
 
 function createList(listItem, todoList) {
@@ -81,16 +82,6 @@ function createList(listItem, todoList) {
             descriptionSpan.textContent = newDescriptionText;
         }
     });
-
-    function extracted(myTask, titleInput, descriptionInput) {
-        if (myTask.taskTitle !== "") { // Check if the input is not empty
-            var todoList = document.getElementById("todo-list");
-            var listItem = document.createElement("li");
-            createListItem(listItem, titleText, descriptionText, false, todoList);
-            titleInput.value = ""; // Clear the task input field
-            descriptionInput.value = ""; // Clear the description input field
-        }
-    }
 }
 
 
