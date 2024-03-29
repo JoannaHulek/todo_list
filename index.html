@@ -5,21 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="style.css">
     <title>My TODO List</title>
-
 </head>
 <body>
 <h1>TODO List</h1>
 <form id="new-task-form">
-    <input type="text" id="title-input" placeholder="Enter your task...">
-    <input type="text" id="description-input" placeholder="Enter task description...">
-    <button class="button-element" type="submit" id="add-task">Add Task</button>
+    <label for="title-input"></label><input type="text" id="title-input" placeholder="Enter your task...">
+    <label for="description-input"></label><input type="text" id="description-input" placeholder="Enter task description...">
+    <button id="add-task" class="button-element" type="submit">Add Task</button>
 </form>
 <ul id="tasks-todo">
     <!-- Tasks will be dynamically added here -->
 </ul>
 <form id="list-handling">
-    <button class="button-element" type="submit" id="save-list">Save List</button>
-    <button class="button-element" type="submit" id="open-list">Open My List</button>
+    <button id="save-list" class="button-element" type="submit">Save My List</button>
+    <button id="open-list" class="button-element" type="submit">Open My List</button>
 </form>
 <script src="task.js"></script> <!-- Link the JavaScript file -->
 <script src="list.js"></script> <!-- Link the JavaScript file -->
