@@ -55,6 +55,10 @@ function createTaskItem(taskItem, title, titleInput, description, descriptionInp
     return {checkbox, titleLabel, editButton, descriptionSpan};
 }
 
+function getTasksTodo() {
+    return document.getElementById("tasks-todo");
+}
+
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
@@ -74,6 +78,6 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
         tasksTodo.appendChild(taskItem);
 
         updateDoneFlag(checkbox, taskItem);
-        editTask(editButton, titleLabel, descriptionSpan);
+        editTask(editButton, titleLabel, descriptionSpan)
     }
 });
