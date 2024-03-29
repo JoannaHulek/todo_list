@@ -16,7 +16,7 @@ ul {
 
 /* CSS styles for the edit button */
 .button-element  {
-    display: block;
+    display: inline-block;
     margin: 5px;
 }
 
