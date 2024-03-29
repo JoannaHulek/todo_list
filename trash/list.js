@@ -80,6 +80,7 @@ function createList(listItem, todoList) {
         if (newTaskText !== null && newDescriptionText !== null) {
             taskLabel.textContent = newTaskText;
             descriptionSpan.textContent = newDescriptionText;
+
         }
     });
 }
