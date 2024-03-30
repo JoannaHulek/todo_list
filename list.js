@@ -4,7 +4,16 @@ const task = {
     doneFlag: false
 };
 
-function createOutput(outputDiv, tasksTodo) {
+function generateOutputSpan(tasksTodo) {
+    let tasksJson = createJsonOutput(tasksTodo)
+    let outputSpan = document.createElement('span');
+    outputSpan.textContent = tasksJson;
+    outputSpan.classList.add("code-element")
+
+    return outputSpan
+}
+
+function createJsonOutput(tasksTodo) {
 
     const tasks = []; // Array to store task objects
 
@@ -21,16 +30,14 @@ function createOutput(outputDiv, tasksTodo) {
         tasks.push(task);
     });
 
-    const tasksJson = JSON.stringify(tasks);
+   JSON.stringify(tasks);
 
-    let outputSpan = document.createElement('span');
-    outputSpan.textContent = tasksJson;
-    outputSpan.classList.add("code-element")
-    outputDiv.appendChild(outputSpan)
+    return JSON.stringify(tasks);
 }
 
 function loadTasksFromStorage() {
     const tasksJson = localStorage.getItem('tasks');
+
     if (tasksJson) {
         const taskList = JSON.parse(tasksJson);
         const tasksTodo = document.getElementById("tasks-todo");
@@ -48,6 +55,8 @@ function loadTasksFromStorage() {
 document.getElementById("list-handling").addEventListener("submit", function(event) {
     const tasksTodo = getTasksTodo()
     const outputDiv = document.getElementById("json-output")
-    createOutput(outputDiv, tasksTodo);
-    //loadTasksFromStorage();
+    outputDiv.appendChild(generateOutputSpan(tasksTodo));
+
+
+    loadTasksFromStorage(tasksTodo)
 })
