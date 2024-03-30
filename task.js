@@ -24,13 +24,16 @@ function editTask(editButton, titleLabel, descriptionSpan) {
 function getTaskInput() {
     let titleInput = document.getElementById("title-input");
     let title = titleInput.value.trim(); // Trim any leading or trailing
+    titleInput.value = ""; // Clear the input field
 
     let descriptionInput = document.getElementById("description-input");
     let description = descriptionInput.value.trim(); // Trim any leading or trailing
-    return {titleInput, title, descriptionInput, description};
+    descriptionInput.value = ""; // Clear the input field
+
+    return {title, description};
 }
 
-function createTaskItem(taskItem, title, titleInput, description, descriptionInput) {
+function createTaskItem(taskItem, title, description) {
     let checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.checked = false;
@@ -40,7 +43,6 @@ function createTaskItem(taskItem, title, titleInput, description, descriptionInp
     titleLabel.textContent = title;
     titleLabel.classList.add('task-title');
     taskItem.appendChild(titleLabel);
-    titleInput.value = ""; // Clear the input field
 
     let editButton = document.createElement('button');
     editButton.textContent = 'Edit';
@@ -51,7 +53,6 @@ function createTaskItem(taskItem, title, titleInput, description, descriptionInp
     descriptionSpan.textContent = description;
     descriptionSpan.classList.add('task-description');
     taskItem.appendChild(descriptionSpan);
-    descriptionInput.value = ""; // Clear the input field
     return {checkbox, titleLabel, editButton, descriptionSpan};
 }
 
@@ -62,7 +63,7 @@ function getTasksTodo() {
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    let {titleInput, title, descriptionInput, description} = getTaskInput();
+    let {title,  description} = getTaskInput();
 
     let tasksTodo = document.getElementById("tasks-todo");
     let taskItem = document.createElement("li");
@@ -73,7 +74,7 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
             titleLabel,
             editButton,
             descriptionSpan
-        } = createTaskItem(taskItem, title, titleInput, description, descriptionInput);
+        } = createTaskItem(taskItem, title, description);
 
         tasksTodo.appendChild(taskItem);
 
