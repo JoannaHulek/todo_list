@@ -1,22 +1,32 @@
-function saveTasks(tasksTodo) {
-    // Function to save tasks list to JSON
-    const tasksJson = JSON.stringify(tasksTodo);
+const task = {
+    title: '',
+    description: '',
+    doneFlag: false
+};
 
-    console.log(tasksJson)
+function createOutput(outputDiv, tasksTodo) {
 
-    const filename = "todo-list.json";
-    const blob = new Blob([tasksJson], { type: "application/json" });
+    const tasks = []; // Array to store task objects
 
-    if (window.navigator.msSaveOrOpenBlob) {
-        // For IE and Edge browsers
-        window.navigator.msSaveBlob(blob, filename);
-    } else {
-        // For other browsers
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = filename;
-        link.click();
-    }
+    // Iterate over each <li> element within the <ul>
+    tasksTodo.querySelectorAll('li').forEach(function(liElement) {
+        const task = {}; // Object to represent a task
+
+        // Extract task title from the text content of the <li>
+
+        task.title = liElement.querySelector('.task-title').textContent.trim()
+        task.description = liElement.querySelector('.task-description').textContent.trim();
+        task.doneFlag = liElement.querySelector('input[type="checkbox"]').checked;
+
+        tasks.push(task);
+    });
+
+    const tasksJson = JSON.stringify(tasks);
+
+    let outputSpan = document.createElement('span');
+    outputSpan.textContent = tasksJson;
+    outputSpan.classList.add("code-element")
+    outputDiv.appendChild(outputSpan)
 }
 
 function loadTasksFromStorage() {
@@ -35,8 +45,9 @@ function loadTasksFromStorage() {
     }
 }
 
-document.getElementById("save-list").addEventListener("submit", function(event) {
-    const tasksTodo = getTasksTodo();
-    saveTasks(tasksTodo);
-    loadTasksFromStorage();
+document.getElementById("list-handling").addEventListener("submit", function(event) {
+    const tasksTodo = getTasksTodo()
+    const outputDiv = document.getElementById("json-output")
+    createOutput(outputDiv, tasksTodo);
+    //loadTasksFromStorage();
 })
