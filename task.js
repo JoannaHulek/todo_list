@@ -1,5 +1,5 @@
 const task = {
-    id:0,
+    id: 0,
     title: '',
     description: '',
     doneFlag: false
@@ -22,25 +22,33 @@ function addTask(title, description) {
     return newTask;
 }
 
-function updateDoneFlag(checkbox, taskItem) {
+
+function updateDoneFlag(taskItem, checkbox) {
+    let taskID = parseInt(taskItem.id)
+
     checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
             taskItem.classList.add("completed");
         } else {
             taskItem.classList.remove("completed");
         }
+        tasks[taskID].doneFlag = checkbox.checked;
     });
 }
 
-function editTask(editButton, titleLabel, descriptionSpan) {
+function editTask(taskItem, editButton, titleLabel, descriptionSpan) {
+    let taskID = parseInt(taskItem.id)
+
     editButton.addEventListener("click", function () {
         let newTitle = prompt("Edit title:", titleLabel.textContent);
         if (newTitle !== null) {
             titleLabel.textContent = newTitle;
+            tasks[taskID].title = newTitle;
         }
         let newDescription = prompt("Edit description:", descriptionSpan.textContent);
         if (newDescription !== null) {
-            descriptionSpan.textContent = newDescription;
+            descriptionSpan.textContent = newDescription
+            tasks[taskID].description = newDescription;
         }
     });
 }
@@ -81,6 +89,9 @@ function createTaskItem(taskItem, title, description) {
 }
 
 function getTasksTodo() {
+    return tasks;
+}
+function getTasksView() {
     return document.getElementById("tasks-todo");
 }
 
@@ -103,7 +114,18 @@ document.getElementById("new-task-form").addEventListener("submit", function(eve
 
         tasksTodo.appendChild(taskItem);
 
-        updateDoneFlag(checkbox, taskItem);
-        editTask(editButton, titleLabel, descriptionSpan)
+        updateDoneFlag(taskItem, checkbox);
+        editTask(taskItem, editButton, titleLabel, descriptionSpan)
     }
 });
+
+document.getElementById("list-handling").addEventListener("submit", function(event) {
+    const tasks = getTasksTodo();
+    const tasksTodo = getTasksView()
+    const outputDiv = document.getElementById("json-output")
+
+    let outputSpan = document.createElement('span');
+    outputSpan.textContent = JSON.stringify(tasks);
+    outputDiv.appendChild(outputSpan);
+
+})
