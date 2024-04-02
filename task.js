@@ -1,3 +1,27 @@
+const task = {
+    id:0,
+    title: '',
+    description: '',
+    doneFlag: false
+};
+
+const tasks = [];
+
+function Task(title, description){
+    this.id = 0;
+    this.title = title;
+    this.description = description;
+    this.doneFlag = false;
+}
+
+function addTask(title, description) {
+    const newTask = new Task(title, description);
+    newTask.id = tasks.length;
+    tasks.push(newTask);
+
+    return newTask;
+}
+
 function updateDoneFlag(checkbox, taskItem) {
     checkbox.addEventListener("change", function () {
         if (checkbox.checked) {
@@ -30,7 +54,7 @@ function getTaskInput() {
     let description = descriptionInput.value.trim(); // Trim any leading or trailing
     descriptionInput.value = ""; // Clear the input field
 
-    return {title, description};
+    return addTask(title, description);
 }
 
 function createTaskItem(taskItem, title, description) {
@@ -63,18 +87,19 @@ function getTasksTodo() {
 document.getElementById("new-task-form").addEventListener("submit", function(event) {
     event.preventDefault(); // Prevent the default form submission
 
-    let {title,  description} = getTaskInput();
+    let newTask = getTaskInput();
 
     let tasksTodo = document.getElementById("tasks-todo");
     let taskItem = document.createElement("li");
+    taskItem.id=newTask.id;
 
-    if (title !== "" || description !== "") { // Check if the input is not empty
+    if (newTask.title !== "" || newTask.description !== "") { // Check if the input is not empty
         let {
             checkbox,
             titleLabel,
             editButton,
             descriptionSpan
-        } = createTaskItem(taskItem, title, description);
+        } = createTaskItem(taskItem, newTask.title, newTask.description);
 
         tasksTodo.appendChild(taskItem);
 
